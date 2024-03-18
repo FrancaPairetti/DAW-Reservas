@@ -1,0 +1,107 @@
+<div class="m-4 row" >
+  <div class="col-8 p-0"><h5>Listado de espacios</h5></div>
+  <div class="col-4 p-0 m-0" style="text-align: end;">
+    <button class="btn btn-info m-1" style="color: white;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa fa-plus" aria-hidden="true" style="color: white;"></i>  Agregar espacio
+    </button>
+  </div>
+</div>
+
+<!-- Modal para agregar espacio -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Espacio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="form-group mb-3">
+            <label for="">Nombre del espacio:</label>
+            <input type="text" [(ngModel)]="espacio.nombre" name="nombre" id="nombre" class="form-control" placeholder="Nombre">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Ubicación del espacio:</label>
+            <input type="text" [(ngModel)]="espacio.ubicacion" name="ubicacion" id="ubicacion" class="form-control" placeholder="Ubicación">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Capacidad del espacio:</label>
+            <input type="text" [(ngModel)]="espacio.capacidad" name="capacidad" id="capacidad" class="form-control" placeholder="Capacidad">
+          </div>
+          <div class="form-group mb-3">
+           <button (click)="GuardarEspacio(espacio)" class="btn btn-success" data-bs-dismiss="modal" >Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filtro por nombre de espacio -->
+<table class="table table-bordered m-4">
+  <tbody>
+    <tr>
+      <td>
+        <input type="text" class="m-2" style="width: 99%;" placeholder="Buscá por nombre de espacio">
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<!-- Tabla con espacios -->
+<table class="table mt-4 mx-4">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Ubicación</th>
+      <th scope="col">Capacidad</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let espacio of espacios">
+    <td>{{espacio.id}}</td>
+    <td>{{espacio.nombre}}</td>
+    <td>{{espacio.ubicacion}}</td>
+    <td>{{espacio.capacidad}}</td>
+    <td>
+      <button class="btn btn-warning m-1" (click)="ObtenerDatosEspacio(espacio)" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="fa fa-pencil" aria-hidden="true" style="color: white;"></i></button>
+      <button class="btn btn-danger m-1" (click)="EliminarEspacio(espacio)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+
+<!-- Modal para editar espacio -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar espacio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="form-group mb-3">
+            <label for="">Nombre del espacio:</label>
+            <input type="text" [(ngModel)]="espacio.nombre" name="nombre" id="nombre" class="form-control" placeholder="Nombre">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Ubicación del espacio:</label>
+            <input type="text" [(ngModel)]="espacio.ubicacion" name="ubicacion" id="ubicacion" class="form-control" placeholder="Ubicación">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Capacidad del espacio:</label>
+            <input type="text" [(ngModel)]="espacio.capacidad" name="capacidad" id="capacidad" class="form-control" placeholder="Capacidad">
+          </div>
+          <div class="form-group mb-3">
+           <button (click)="ActualizarEspacio(espacio)" class="btn btn-success" data-bs-dismiss="modal" >Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

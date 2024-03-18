@@ -1,0 +1,134 @@
+<div class="m-4 row" >
+  <div class="col-8 p-0"><h5>Listado de personas</h5></div>
+  <div class="col-4 p-0 m-0" style="text-align: end;">
+    <button class="btn btn-info m-1" style="color: white;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa fa-plus" aria-hidden="true" style="color: white;"></i>  Agregar persona
+    </button>
+  </div>
+</div>
+
+<!-- Modal para agregar persona -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva persona</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="GuardarPersona(persona)" class="needs-validation">
+          <div class="form-group mb-3">
+            <label for="">Nombre:</label>
+            <input type="text" [(ngModel)]="persona.name" name="name" id="name" class="form-control" placeholder="Nombre" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Apellido:</label>
+            <input type="text" [(ngModel)]="persona.apellido" name="apellido" id="ubicacion" class="form-control" placeholder="Apellido" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">DNI</label>
+            <input type="number" [(ngModel)]="persona.dni" name="dni" id="dni" class="form-control" placeholder="DNI" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Teléfono</label>
+            <input type="number" [(ngModel)]="persona.tel" name="tel" id="tel" class="form-control" placeholder="Teléfono">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Rol:</label>
+            <select class="form-control" [(ngModel)]="persona.roles" name="roles" required>
+              <option value="" disabled selected hidden>Selecciona un rol</option>
+              <option *ngFor="let rol of rolesArray" [ngValue]="rol">{{rol.nombre}}</option>
+            </select>
+
+          </div>
+          <div class="form-group mb-3">
+           <button class="btn btn-success" data-bs-dismiss="modal"  type="submit" >Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filtro por nombre -->
+<table class="table table-bordered m-4">
+  <tbody>
+    <tr>
+      <td>
+        <input type="text" class="m-2" style="width: 99%;" placeholder="Buscá por nombre de persona">
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<!-- Tabla con personas -->
+<table class="table mt-4 mx-4">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">DNI</th>
+      <th scope="col">Teléfono</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let persona of personas">
+    <td>{{persona.id}}</td>
+    <td>{{persona.name}}</td>
+    <td>{{persona.apellido}}</td>
+    <td>{{persona.dni}}</td>
+    <td>{{persona.tel}}</td>
+    <td>
+      <button class="btn btn-warning m-1" (click)="ObtenerDatosPersona(persona)" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="fa fa-pencil" aria-hidden="true" style="color: white;"></i></button>
+      <button class="btn btn-danger m-1" (click)="EliminarPersona(persona)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+
+<!-- Modal para editar espacio -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar persona</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="form-group mb-3">
+            <label for="">Nombre:</label>
+            <input type="text" [(ngModel)]="persona.name" name="name" id="name" class="form-control" placeholder="Nombre">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Apellido:</label>
+            <input type="text" [(ngModel)]="persona.apellido" name="apellido" id="ubicacion" class="form-control" placeholder="Apellido">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">DNI</label>
+            <input type="number" [(ngModel)]="persona.dni" name="dni" id="dni" class="form-control" placeholder="DNI">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Teléfono</label>
+            <input type="number" [(ngModel)]="persona.tel" name="tel" id="tel" class="form-control" placeholder="Teléfono">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Rol:</label>
+            <select class="form-control" [(ngModel)]="selectedRoleId" (ngModelChange)="selectedRoleId = $event" name="roles" required>
+              <option value="" disabled selected hidden>Selecciona un rol</option>
+              <option *ngFor="let rol of rolesArray" [value]="rol.id" [selected]="rol.id === persona.roles?.id">{{rol.nombre}}</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+           <button (click)="ActualizarPersona(persona)" class="btn btn-success" data-bs-dismiss="modal" >Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,154 @@
+<div class="m-4 row" >
+  <div class="col-8 p-0"><h5>Listado de reservas</h5></div>
+  <div class="col-4 p-0 m-0" style="text-align: end;">
+    <button class="btn btn-info m-1" style="color: white;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa fa-plus" aria-hidden="true" style="color: white;"></i>  Agregar reserva
+    </button>
+  </div>
+</div>
+
+<!-- Modal para agregar reserva -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva reserva</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="GuardarReserva(reserva)" class="needs-validation">
+          <!-- Campo de fecha de registro oculto -->
+        <input type="hidden" [(ngModel)]="reserva.fechaHoraReserva" name="fechaHoraReserva" id="fechaHoraReserva">
+          <div class="form-group mb-3">
+            <label for="">Fecha de Inicio:</label>
+            <input type="datetime-local" [(ngModel)]="reserva.fechaInicioReserva" name="fechaInicioReserva" id="fechaInicioReserva" class="form-control" placeholder="Fecha de Inicio de reserva" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Fecha de Fin</label>
+            <input type="datetime-local" [(ngModel)]="reserva.fechaFinReserva" name="fechaFinReserva" id="fechaFinReserva" class="form-control" placeholder="Fecha de Fin de la reserva" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Capacidad requerida</label>
+            <input type="number" [(ngModel)]="reserva.cantidadReserva" name="cantidadReserva" id="cantidadReserva" class="form-control" placeholder="Capcidad requerida para la reserva" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Motivo de reserva</label>
+            <input type="test" [(ngModel)]="reserva.motivo" name="motivo" id="motivo" class="form-control" placeholder="Motivo de la reserva">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Espacio :</label>
+            <select class="form-control" [(ngModel)]="reserva.espacios" name="espacios" required>
+              <option value="" disabled selected hidden>Selecciona un espacio</option>
+              <option *ngFor="let espacio of espaciosArray" [ngValue]="espacio">{{espacio.nombre}}</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Reservante:</label>
+            <select class="form-control" [(ngModel)]="reserva.personas" name="personas" required>
+              <option value="" disabled selected hidden>Selecciona un reservante</option>
+              <option *ngFor="let persona of personasArray" [ngValue]="persona">{{persona.name + ' ' + persona.apellido}} </option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+           <button class="btn btn-success" data-bs-dismiss="modal"  type="submit" >Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filtro por nombre -->
+<table class="table table-bordered m-4">
+  <tbody>
+    <tr>
+      <td>
+        <input type="text" class="m-2" style="width: 99%;" placeholder="Buscá reservas">
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<!-- Tabla con reservas -->
+<table class="table mt-4 mx-4">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Fecha de Incio</th>
+      <th scope="col">Fecha de Fin</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Espacio</th>
+      <th scope="col">Persona</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reserva of reservas">
+    <td>{{reserva.id}}</td>
+    <td>{{reserva.fechaInicioReserva | date:'dd/MM/yyyy HH:mm'}}</td>
+    <td>{{reserva.fechaFinReserva | date:'dd/MM/yyyy HH:mm'}}</td>
+    <td>{{reserva.cantidadReserva}}</td>
+    <td>{{reserva.espacios?.nombre}} </td>
+    <td>{{reserva.personas?.name + ' ' +reserva.personas?.apellido}} </td>
+    <td>
+      <button class="btn btn-warning m-1" (click)="ObtenerDatosReserva(reserva)" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="fa fa-pencil" aria-hidden="true" style="color: white;"></i></button>
+      <button class="btn btn-danger m-1" (click)="EliminarReserva(reserva)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+
+<!-- Modal para editar espacio -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar persona</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="ActualizarReserva(reserva)" class="needs-validation">
+          <!-- Campo de fecha de registro oculto -->
+        <input type="hidden" [(ngModel)]="reserva.fechaHoraReserva" name="fechaHoraReserva" id="fechaHoraReserva">
+          <div class="form-group mb-3">
+            <label for="">Fecha de Inicio:</label>
+            <input type="datetime-local" [(ngModel)]="reserva.fechaInicioReservaEdit" name="fechaInicioReserva" id="fechaInicioReserva" class="form-control" placeholder="Fecha de Inicio de reserva"  required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Fecha de Fin</label>
+            <input type="datetime-local" [(ngModel)]="reserva.fechaFinReservaEdit" name="fechaFinReserva" id="fechaFinReserva" class="form-control" placeholder="Fecha de Fin de la reserva" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Capacidad requerida</label>
+            <input type="number" [(ngModel)]="reserva.cantidadReserva" name="cantidadReserva" id="cantidadReserva" class="form-control" placeholder="Capcidad requerida para la reserva" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Motivo de reserva</label>
+            <input type="test" [(ngModel)]="reserva.motivo" name="motivo" id="motivo" class="form-control" placeholder="Motivo de la reserva">
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Espacio :</label>
+            <select class="form-control" [(ngModel)]="selectedEspacioId" (ngModelChange)="selectedEspacioId = $event" name="espacios" required>
+              <option value="" disabled selected hidden>Selecciona un espacio</option>
+              <option *ngFor="let espacio of espaciosArray" [ngValue]="espacio.id" [selected]="espacio.id === reserva.espacios?.id">{{espacio.nombre}}</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="">Reservante:</label>
+            <select class="form-control" [(ngModel)]="selectedPersonaId" (ngModelChange)="selectedPersonaId = $event" name="personas" required>
+              <option value="" disabled selected>Selecciona un reservante</option>
+              <option *ngFor="let persona of personasArray" [ngValue]="persona.id" [selected]="persona.id === reserva.personas?.id">{{persona.name + ' ' + persona.apellido}} </option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+           <button class="btn btn-success" data-bs-dismiss="modal"  type="submit" >Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
