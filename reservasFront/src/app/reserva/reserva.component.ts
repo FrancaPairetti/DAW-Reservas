@@ -147,4 +147,41 @@ export class ReservaComponent implements OnInit {
       }
     );
   }
+
+  //FILTROS
+
+  BuscarReservas(){
+    const nameFiltroInput = (document.getElementById('filtroNombre') as HTMLInputElement);
+    const name = nameFiltroInput.value;
+
+    const espacioFiltroInput = (document.getElementById('filtroEspacio') as HTMLInputElement);
+    const esp = espacioFiltroInput.value;
+    if (name !== null && name.trim() !== ''  && (esp==null || esp.trim() == '')) { // Asegúrate de que el nombre no esté vacío
+      this.service.getReservasReservante(name)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.reservas = data;
+      })
+    }else if (esp!==null && esp.trim() !== '' && (name == null || name.trim() == '')){
+      this.service.getReservasEspacio(esp)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.reservas = data;
+      })
+
+    }else if(name !== null && name.trim() !== ''  && esp!==null && esp.trim() !== ''){
+      this.service.getReservasReservanteYEspacio(name,esp)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.reservas = data;
+      })
+    }else {
+      //console.log('Nombre de filtro no válido');
+      this.service.getReservas()
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.reservas= data;
+      })
+    }
+  }
 }

@@ -55,7 +55,22 @@
   <tbody>
     <tr>
       <td>
-        <input type="text" class="m-2" style="width: 99%;" placeholder="Buscá por nombre de persona">
+        <form>
+          <div class="row">
+            <div class="col-5">
+              <input type="text" class="m-2" style="width: 99%;" id="filtroNombre" name="filtroNombre" placeholder="Buscá por nombre de la persona">
+
+            </div>
+            <div class="col-5">
+              <input type="text" class="m-2" style="width: 99%;" id="filtroApellido" name="filtroApellido"placeholder="Buscá por apellido de la persona">
+
+            </div>
+            <div class="col-2">
+              <button class="btn btn-outline-info m-1" (click)="BuscarPersonas()"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+
+          </div>
+        </form>
       </td>
     </tr>
 

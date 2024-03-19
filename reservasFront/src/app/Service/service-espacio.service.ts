@@ -32,4 +32,15 @@ export class ServiceEspacioService {
   }
 
   //agregar lo de filtros por nombre y capacidad
+  getEspaciosNombre(nombre:string){
+    return this.http.get<Espacio[]>(this.UrlEspacio+`/search?nombre=${nombre}`);
+  }
+
+  getEspaciosCapacidad(capacidad:string){
+    return this.http.get<Espacio[]>(this.UrlEspacio+`/search?capacidad=${capacidad}`);
+  }
+
+  getEspaciosCapacidadNombre(nombre: string , capacidad:string){
+    return this.http.get<Espacio[]>(this.UrlEspacio+`/search?nombre=${nombre}&capacidad=${capacidad}`);
+  }
 }

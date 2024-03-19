@@ -30,4 +30,18 @@ export class ServicePersonaService {
   deletePersona(persona:Persona){
     return this.http.delete<Persona>(this.Url + "/eliminarPersona?id= "+persona.id);
   }
+
+  //FILTROS
+
+  getPersonasNombre(name:string){
+    return this.http.get<Persona[]>(this.Url+`/search?name=${name}`);
+  }
+
+  getPersonasApellido(apellido:string){
+    return this.http.get<Persona[]>(this.Url+`/search?apellido=${apellido}`);
+  }
+
+  getPersonasNombreApellido(name:string,apellido:string){
+    return this.http.get<Persona[]>(this.Url+`/search?name=${name}&apellido=${apellido}`);
+  }
 }

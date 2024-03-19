@@ -20,4 +20,10 @@ public interface ReservaRepositorio extends CrudRepository<Reserva, Integer> {
     List<Reserva> findAll();
     public Iterable<Reserva> findByEspacios(Espacio espacios);
 
+    public Iterable<Reserva> findByEspaciosNombreContainingIgnoreCase(String espacio);
+    public Iterable<Reserva> findByPersonasNameContainingIgnoreCaseOrPersonasApellidoContainingIgnoreCase(String name, String apellido);
+
+    public Iterable<Reserva> findByEspaciosNombreContainingIgnoreCaseAndPersonasNameContainingIgnoreCaseOrPersonasApellidoContainingIgnoreCase(String espacio , String name, String apellido );
+
+
 }

@@ -31,4 +31,9 @@ export class ServiceRolService {
     return this.http.put<Rol>(this.UrlRol+"/modificarRol/"+rol.id, rol);
   }
 
+  getRolNombre(name : string){
+    return this.http.get<Rol[]>(this.UrlRol+"/listarRoles/name/"+name);
+  }
+
+
 }

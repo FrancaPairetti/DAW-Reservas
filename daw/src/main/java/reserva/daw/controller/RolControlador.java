@@ -4,7 +4,6 @@ package reserva.daw.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import reserva.daw.model.Persona;
 import reserva.daw.model.Rol;
 import reserva.daw.service.RolService;
 
@@ -43,5 +42,10 @@ public class RolControlador {
     public Rol upadateRol(@RequestBody Rol r, @PathVariable("id") int id){
         r.setId(id);
         return rolService.updateRol(r);
+    }
+
+    @GetMapping(path = {"/listarRoles/name/{name}"})
+    public Iterable<Rol> listarName (@PathVariable("name") String name){
+        return rolService.findAllByNombreIgnoreCaseContains(name);
     }
 }

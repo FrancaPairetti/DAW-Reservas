@@ -18,8 +18,29 @@ export class RolComponent implements OnInit {
   ngOnInit() {
     this.service.getRoles()
     .subscribe(data=>{
+      //console.log("roles todos"+data);
       this.roles = data;
     })
+  }
+
+  BuscarPorNombreRol(){
+    const nameFiltroInput = (document.getElementById('filtroNombre') as HTMLInputElement);
+    const name = nameFiltroInput.value;
+    if (name !== null && name.trim() !== '') { // Asegúrate de que el nombre no esté vacío
+      this.service.getRolNombre(name)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.roles = data;
+      })
+    } else {
+      //console.log('Nombre de filtro no válido');
+      this.service.getRoles()
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.roles = data;
+      })
+    }
+
   }
 
   GuardarRol(rol:Rol){
@@ -63,5 +84,7 @@ export class RolComponent implements OnInit {
     })
 
   }
+
+
 
 }

@@ -95,5 +95,20 @@ public class ReservaServiceImp implements ReservaService{
         return reservasfiltradas;
     }
 
+    @Override
+    public Iterable<Reserva> getPorReservante(String reservante) {
+        return reservaRepositorio.findByPersonasNameContainingIgnoreCaseOrPersonasApellidoContainingIgnoreCase(reservante , reservante);
+    }
+
+    @Override
+    public Iterable<Reserva> getPorEspacioNombre(String espacio) {
+        return reservaRepositorio.findByEspaciosNombreContainingIgnoreCase(espacio);
+    }
+
+    @Override
+    public Iterable<Reserva> getPorReservanteYEspacio(String espacio, String reservante) {
+        return reservaRepositorio.findByEspaciosNombreContainingIgnoreCaseAndPersonasNameContainingIgnoreCaseOrPersonasApellidoContainingIgnoreCase(espacio,reservante , reservante );
+    }
+
 
 }

@@ -44,4 +44,19 @@ public class PersonaServiceImp implements  PersonaService  {
         repositorio.deleteById(id);
         return "Se ha eliminado correctamente";
     }
+
+    @Override
+    public List<Persona> getPersonaFiltroName(String name) {
+        return repositorio.findAllByNameIgnoreCaseContains(name);
+    }
+
+    @Override
+    public List<Persona> getPersonaFiltroApellido(String apellido) {
+        return repositorio.findAllByApellidoIgnoreCaseContains(apellido);
+    }
+
+    @Override
+    public List<Persona> getPersonaFiltroNameYApellido(String name, String apellido) {
+        return repositorio.findAllByNameIgnoreCaseContainsAndApellidoIgnoreCaseContains(name, apellido);
+    }
 }

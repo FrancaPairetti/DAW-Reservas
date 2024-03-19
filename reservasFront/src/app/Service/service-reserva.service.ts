@@ -30,4 +30,17 @@ export class ServiceReservaService {
   deleteReserva(reserva: Reserva){
     return this.http.delete<Reserva>(this.Url + "/eliminarReserva?id= "+reserva.id);
   }
+
+  //FILTROS
+  getReservasReservante(reservante: string){
+    return this.http.get<Reserva[]>(this.Url+`/search?reservante=${reservante}`);
+  }
+
+  getReservasEspacio(espacio: string){
+    return this.http.get<Reserva[]>(this.Url+`/search?espacio=${espacio}`);
+  }
+
+  getReservasReservanteYEspacio(reservante: string , espacio:string){
+    return this.http.get<Reserva[]>(this.Url+`/search?espacio=${espacio}&reservante=${reservante}`);
+  }
 }

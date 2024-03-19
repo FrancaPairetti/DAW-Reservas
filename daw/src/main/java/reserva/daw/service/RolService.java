@@ -17,4 +17,6 @@ public interface RolService {
 
     Optional<Rol> listarId(int id);
 
+    Iterable<Rol> findAllByNombreIgnoreCaseContains(String name);
+
 }

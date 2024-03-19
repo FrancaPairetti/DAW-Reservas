@@ -83,6 +83,44 @@ export class PersonaComponent implements OnInit {
     })
   }
 
+  //FILTROS
+
+  BuscarPersonas(){
+    const nameFiltroInput = (document.getElementById('filtroNombre') as HTMLInputElement);
+    const name = nameFiltroInput.value;
+
+    const apellidoFiltroInput = (document.getElementById('filtroApellido') as HTMLInputElement);
+    const ap = apellidoFiltroInput.value;
+    if (name !== null && name.trim() !== '' && ap!==null && ap.trim() !== '') {
+      this.service.getPersonasNombreApellido(name,ap)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.personas = data;
+      })
+    }else if (name !== null && name.trim() !== '' && (ap==null || ap.trim() == '') ){
+      this.service.getPersonasNombre(name)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.personas = data;
+      })
+
+    } else if (ap!==null && ap.trim() !== '' && (name == null || name.trim() == '')){
+      this.service.getPersonasApellido(ap)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.personas = data;
+      })
+
+    }else {
+      //console.log('Nombre de filtro no válido');
+      this.service.getPersonas()
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.personas = data;
+      })
+    }
+  }
+
 
 
 }

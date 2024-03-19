@@ -16,4 +16,10 @@ public interface PersonaRepositorio extends CrudRepository<Persona, Integer>{
     @Override
     Optional<Persona> findById(Integer id);
 
+    List<Persona> findAllByNameIgnoreCaseContains(String name);
+
+    List<Persona> findAllByApellidoIgnoreCaseContains(String apellido);
+
+    List<Persona> findAllByNameIgnoreCaseContainsAndApellidoIgnoreCaseContains(String name, String apellido);
+
 }

@@ -47,4 +47,22 @@ public class ReservaControlador {
         r.setId(id);
         return reservaService.updateReserva(r);
     }
+
+    @GetMapping(value = "/search", params = {"reservante"} )
+    public Iterable<Reserva> getPorReservante(@RequestParam(name = "reservante", required = true) String reservante){
+        return reservaService.getPorReservante(reservante);
+
+    }
+
+    @GetMapping(value = "/search", params = {"espacio"} )
+    public Iterable<Reserva> getPorEspacioNombre(@RequestParam(name = "espacio", required = true) String espacio){
+        return reservaService.getPorEspacioNombre(espacio);
+
+    }
+
+    @GetMapping(value = "/search", params={ "espacio" ,"reservante"} )
+    public Iterable<Reserva> getPorReservanteYEspacio(@RequestParam(name="espacio",required= true)String espacio ,@RequestParam(name="reservante",required = true)String reservante){
+        return reservaService.getPorReservanteYEspacio(espacio , reservante);
+
+    }
 }

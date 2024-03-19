@@ -22,4 +22,9 @@ public interface ReservaService {
 
     Iterable<Reserva> getPorEspacioYFechas(Espacio espacio, Date inicio, Date fin);
 
+    Iterable<Reserva> getPorReservante(String reservante);
+
+    Iterable<Reserva> getPorEspacioNombre(String espacio);
+
+    Iterable<Reserva> getPorReservanteYEspacio( String espacio, String reservante);
 }

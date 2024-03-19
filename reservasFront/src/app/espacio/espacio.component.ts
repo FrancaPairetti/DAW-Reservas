@@ -63,4 +63,40 @@ export class EspacioComponent implements OnInit {
     })
 
   }
+
+  BuscarEspacios(){
+    const nameFiltroInput = (document.getElementById('filtroNombre') as HTMLInputElement);
+    const name = nameFiltroInput.value;
+
+    const capacidadFiltroInput = (document.getElementById('filtroCapacidad') as HTMLInputElement);
+    const cap = capacidadFiltroInput.value;
+    if (name !== null && name.trim() !== '' && cap!==null && cap.trim() !== '') { // Asegúrate de que el nombre no esté vacío
+      this.service.getEspaciosCapacidadNombre(name, cap)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.espacios = data;
+      })
+    }else if (name !== null && name.trim() !== '' && (cap==null || cap.trim() == '') ){
+      this.service.getEspaciosNombre(name)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.espacios = data;
+      })
+
+    } else if (cap!==null && cap.trim() !== '' && (name == null || name.trim() == '')){
+      this.service.getEspaciosCapacidad(cap)
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.espacios = data;
+      })
+
+    }else {
+      //console.log('Nombre de filtro no válido');
+      this.service.getEspacioes()
+      .subscribe(data=>{
+        //console.log("roles todos"+data);
+        this.espacios = data;
+      })
+    }
+  }
 }

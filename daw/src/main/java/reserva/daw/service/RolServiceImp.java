@@ -41,4 +41,9 @@ public class RolServiceImp implements RolService {
         return repositorioRol.findById(id);
     }
 
+    @Override
+    public Iterable<Rol> findAllByNombreIgnoreCaseContains(String name) {
+        return repositorioRol.findAllByNombreIgnoreCaseContains(name);
+    }
+
 }
