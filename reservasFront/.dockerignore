@@ -1,0 +1,15 @@
+.git
+
+.firabase
+
+.editorconfig
+
+/node_modules
+
+/gitignore
+
+/.angular
+
+*.zip
+
+*.md
