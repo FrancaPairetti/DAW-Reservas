@@ -12,7 +12,7 @@ COPY package.json /usr/src/app/package.json
 
 RUN npm install
 
-RUN npm install -g @angular/cli@16.0.4
+
 
 COPY . /usr/src/app
 
